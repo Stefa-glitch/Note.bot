@@ -12,6 +12,9 @@ def display_notes(notes):
         print(f"\nNote {i}:")
         print(f"Title: {note.title}")
         print(f"Content: {note.content}")
+        print(f"Color: {note.color}")
+        if note.tags:
+            print(f"Tags: {', '.join(note.tags)}")
     return True
 
 def main():
@@ -27,14 +30,20 @@ def main():
         print("2. View all notes")
         print("3. Edit note")
         print("4. Delete note")
-        print("5. Exit")
+        print("5. Search notes")
+        print("6. Search by tag")
+        print("7. Search by color")
+        print("8. Exit")
         
-        choice = input("Enter your choice (1-5): ")
+        choice = input("Enter your choice (1-8): ")
         
         if choice == "1":
             title = input("Enter note title: ")
             content = input("Enter note content: ")
-            new_note = Note(title=title, content=content)
+            color = input("Enter note color (or press Enter for white): ").strip() or "white"
+            tags = input("Enter tags (comma-separated, or press Enter for none): ").strip()
+            tags = [tag.strip() for tag in tags.split(",")] if tags else []
+            new_note = Note(title=title, content=content, color=color, tags=tags)
             note_list.add_note(new_note)
             save_notes(note_list.get_all_notes())
             print("Note added successfully!")
@@ -56,11 +65,17 @@ def main():
                         
                         new_title = input("\nEnter new title (press Enter to keep current): ")
                         new_content = input("Enter new content (press Enter to keep current): ")
+                        new_color = input("Enter new color (press Enter to keep current): ")
+                        new_tags = input("Enter new tags (comma-separated, press Enter to keep current): ")
                         
                         if new_title:
                             note.title = new_title
                         if new_content:
                             note.content = new_content
+                        if new_color:
+                            note.color = new_color
+                        if new_tags:
+                            note.tags = [tag.strip() for tag in new_tags.split(",")]
                             
                         save_notes(note_list.get_all_notes())
                         print("Note updated successfully!")
@@ -84,6 +99,21 @@ def main():
                     print("Please enter a valid number!")
                     
         elif choice == "5":
+            query = input("Enter search query: ")
+            found_notes = note_list.search_notes(query)
+            display_notes(found_notes)
+            
+        elif choice == "6":
+            tag = input("Enter tag to search for: ")
+            found_notes = note_list.get_notes_by_tag(tag)
+            display_notes(found_notes)
+            
+        elif choice == "7":
+            color = input("Enter color to search for: ")
+            found_notes = note_list.get_notes_by_color(color)
+            display_notes(found_notes)
+            
+        elif choice == "8":
             print("Goodbye!")
             break
             
