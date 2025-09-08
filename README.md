@@ -35,7 +35,7 @@ note-bot
 
 1. Clone the repository:
    ```
-   git clone <repository-url>
+   git clone https://github.com/Stefa-glitch/Note.bot.git
    cd note-bot
    ```
 
