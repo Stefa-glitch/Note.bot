@@ -1,6 +1,19 @@
 [
     {
         "title": "",
-        "content": ""
+        "content": "",
+        "tags": [],
+        "tasks": [
+            {
+                "text": "operi sudove !!!!",
+                "done": true
+            }
+        ]
+    },
+    {
+        "title": "oeri sudove",
+        "content": "peri te sudove vise!",
+        "tags": [],
+        "tasks": []
     }
 ]

@@ -1,11 +1,22 @@
 # filepath: note-bot/src/components/note.py
 
 class Note:
-    def __init__(self, title, content, tags=None, color=None):
+    def __init__(self, title, content, tags=None, tasks=None):
         self.title = title
         self.content = content
         self.tags = tags or []
-        self.color = color or "white"
+        self.tasks = tasks or []  # Each task: {"text": str, "done": bool}
+
+    def add_task(self, text):
+        self.tasks.append({"text": text, "done": False})
+
+    def remove_task(self, index):
+        if 0 <= index < len(self.tasks):
+            self.tasks.pop(index)
+
+    def toggle_task(self, index):
+        if 0 <= index < len(self.tasks):
+            self.tasks[index]["done"] = not self.tasks[index]["done"]
 
     def add_tag(self, tag):
         if tag not in self.tags:
@@ -15,8 +26,6 @@ class Note:
         if tag in self.tags:
             self.tags.remove(tag)
 
-    def set_color(self, color):
-        self.color = color
 
     def save(self):
         # Logic to save the note to the database

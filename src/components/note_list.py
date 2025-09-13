@@ -25,5 +25,3 @@ class NoteList:
     def get_notes_by_tag(self, tag: str) -> List[Note]:
         return [note for note in self.notes if tag in note.tags]
     
-    def get_notes_by_color(self, color: str) -> List[Note]:
-        return [note for note in self.notes if note.color.lower() == color.lower()]

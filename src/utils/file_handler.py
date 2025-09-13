@@ -14,7 +14,7 @@ def load_notes() -> List[Note]:
                 title=note["title"],
                 content=note["content"],
                 tags=note.get("tags", []),
-                color=note.get("color", "white")
+                tasks=note.get("tasks", [])
             ) for note in notes_data]
     except:
         return []
@@ -25,7 +25,7 @@ def save_notes(notes: List[Note]) -> None:
         "title": note.title,
         "content": note.content,
         "tags": note.tags,
-        "color": note.color
+        "tasks": getattr(note, "tasks", [])
     } for note in notes]
     with open(file_path, 'w') as file:
         json.dump(notes_data, file, indent=4)
